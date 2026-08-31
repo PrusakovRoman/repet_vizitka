@@ -1133,6 +1133,53 @@
       font-weight: 700;
     }
 
+    /* Стилизация карточки-ссылки */
+    .system-card-link {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .system-card-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(15, 23, 42, 0.35);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
+    }
+
+    .system-card-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Стрелочка внешнего перехода */
+    .system-link-arrow {
+      font-family: var(--font-mono);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .system-card-link:hover .system-link-arrow {
+      color: var(--text-main);
+      transform: translate(3px, -3px);
+    }
+
+    /* Аккуратное тонкое подчеркивание названия */
+    .system-title-accent {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+      text-decoration-color: rgba(15, 23, 42, 0.3);
+      transition: text-decoration-color 0.2s ease;
+    }
+
+    .system-card-link:hover .system-title-accent {
+      text-decoration-color: var(--text-main);
+    }
+
     /* -------------------------------------------------------------
        АДАПТИВ
        ------------------------------------------------------------- */
@@ -1461,16 +1508,22 @@
           </div>
         </div>
 
-        <!-- 03 (На всю ширину) -->
-        <div class="system-card system-card-full">
+        <!-- 03 (Интерактивная карточка-ссылка) -->
+        <a href="https://schyot.tech" target="_blank" rel="noopener noreferrer"
+          class="system-card system-card-full system-card-link">
           <div class="system-card-top">
-            <div class="system-card-num">03</div>
-            <div class="system-card-title">Платформа СЧЁТ</div>
+            <div class="system-card-header-row">
+              <div class="system-card-num">03</div>
+              <span class="system-link-arrow">↗</span>
+            </div>
+            <div class="system-card-title">
+              Платформа <span class="system-title-accent">СЧЁТ</span>
+            </div>
           </div>
           <div class="system-card-desc">
             Интерактивный тренажер задач, автопроверка и геймификация для регулярной практики.
           </div>
-        </div>
+        </a>
 
         <!-- 04 -->
         <div class="system-card">
