@@ -196,6 +196,44 @@
       align-items: flex-start;
     }
 
+    /* Мобильный аватар-кружок (виден только при <= 960px) */
+    .hero-mobile-author {
+      display: none;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .hero-mobile-avatar {
+      width: 85px;
+      height: 85px;
+      object-fit: cover;
+      object-position: center 25%;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      border-radius: 50% !important;
+    }
+
+    .hero-mobile-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .hero-mobile-name {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .hero-mobile-role {
+      font-size: 0.76rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      line-height: 1.2;
+    }
+
     .hero-tags-row {
       display: flex;
       gap: 10px;
@@ -223,14 +261,14 @@
     h1.hero-title {
       font-size: clamp(2.4rem, 4.4vw, 4rem);
       font-weight: 900;
-      line-height: 1.25;
+      line-height: 1.22;
       letter-spacing: -0.03em;
       text-transform: uppercase;
       color: var(--text-main);
       margin-bottom: 36px;
     }
 
-    /* Черный блок с белым текстом на главной */
+    /* Черный прямоугольник с белым текстом на главной */
     .hero-title .hero-title-box {
       display: inline-block !important;
       background-color: #0f172a !important;
@@ -242,7 +280,7 @@
       border: none !important;
     }
 
-    /* Белый блок с темным текстом в секции бесплатного урока */
+    /* Белый прямоугольник с темным текстом в секции урока */
     .free-lesson-title .free-lesson-box {
       display: inline-block !important;
       background-color: #ffffff !important;
@@ -289,32 +327,16 @@
       align-items: center;
       justify-content: center;
       line-height: 0;
-      /* Убирает лишний отступ под img */
     }
 
     .photo-container img {
       width: 100%;
       height: auto;
-      max-height: 620px;
+      max-height: 600px;
       object-fit: contain;
       display: block;
-    }
-
-    /* Накладываем 4 независимых мягких градиента по всем сторонам */
-    .photo-container::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        /* Слева */
-        linear-gradient(to right, #f8fafc 0%, transparent 2%),
-        /* Справа */
-        linear-gradient(to left, #f8fafc 0%, transparent 2%),
-        /* Сверху */
-        linear-gradient(to bottom, #f8fafc 0%, transparent 2%),
-        /* Снизу */
-        linear-gradient(to top, #f8fafc 0%, transparent 2%);
+      -webkit-mask-image: radial-gradient(ellipse 94% 94% at 50% 50%, black 82%, transparent 100%);
+      mask-image: radial-gradient(ellipse 94% 94% at 50% 50%, black 82%, transparent 100%);
     }
 
     /* -------------------------------------------------------------
@@ -515,7 +537,7 @@
     }
 
     /* -------------------------------------------------------------
-       СЕКЦИЯ 3: СИСТЕМА
+       СЕКЦИЯ 3: СИСТЕМА (СТРУКТУРА: НОМЕР -> ЗАГОЛОВОК -> ТЕКСТ)
        ------------------------------------------------------------- */
     #system {
       background-color: var(--bg-system);
@@ -528,54 +550,140 @@
       justify-content: center;
     }
 
-    .system-grid {
+    /* Сетка на десктопах и планшетах */
+    .system-container-layout {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
       width: 100%;
     }
 
-    .system-card {
+    .system-item {
       background: #ffffff;
       border: var(--border-subtle);
       padding: 32px 30px;
       min-height: 200px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
       position: relative;
+      transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
-    .system-card-full {
-      grid-column: span 2;
+    .system-item:hover {
+      border-color: rgba(15, 23, 42, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.04);
     }
 
-    .system-card-top {
+    .system-item-header {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      align-items: flex-start;
+      text-align: left;
+      cursor: default;
     }
 
-    .system-card-num {
+    .system-item-num-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+
+    .system-item-num {
       font-family: var(--font-mono);
       font-size: 0.95rem;
       font-weight: 700;
       color: var(--text-muted);
     }
 
-    .system-card-title {
+    .system-item-title {
       font-size: 1.35rem;
       font-weight: 800;
       letter-spacing: -0.02em;
       color: var(--text-main);
       line-height: 1.25;
+      text-align: left;
+      width: 100%;
     }
 
-    .system-card-desc {
+    /* Иконка плюса скрыта на десктопе и планшетах */
+    .system-item-icon {
+      display: none;
+    }
+
+    .system-item-desc {
       font-size: 0.95rem;
       color: var(--text-secondary);
-      line-height: 1.5;
+      line-height: 1.55;
       margin-top: 14px;
+      text-align: left;
+    }
+
+    /* Карточка 03: Инверсивный стиль (Платформа «СЧЁТ») */
+    .system-item-full {
+      grid-column: span 2;
+    }
+
+    .system-item-inverse {
+      background: #0f172a;
+      border: 1px solid #0f172a;
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    .system-item-inverse:hover {
+      background: #1e293b;
+      border-color: #1e293b;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.25);
+    }
+
+    .system-item-inverse .system-item-num {
+      color: #94a3b8;
+    }
+
+    .system-item-inverse .system-item-title {
+      color: #ffffff;
+    }
+
+    .system-item-inverse .system-item-desc {
+      color: #cbd5e1;
+    }
+
+    .system-link-arrow {
+      font-family: var(--font-mono);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #94a3b8;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .system-item-inverse:hover .system-link-arrow {
+      color: #ffffff;
+      transform: translate(3px, -3px);
+    }
+
+    .system-title-accent {
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+      text-decoration-color: rgba(255, 255, 255, 0.4);
+      transition: text-decoration-color 0.2s ease;
+    }
+
+    .system-item-inverse:hover .system-title-accent {
+      text-decoration-color: #ffffff;
+    }
+
+    .system-mobile-cta {
+      display: none;
     }
 
     /* -------------------------------------------------------------
@@ -862,18 +970,6 @@
       max-width: 1050px;
     }
 
-    /* Прямоугольная рамка со сменой цвета */
-    .free-lesson-box {
-      display: inline-block;
-      border: 3px solid #ffffff;
-      padding: 0 16px;
-      margin: 0 4px;
-      background: transparent;
-      color: #ffffff;
-      line-height: 1.15;
-      vertical-align: middle;
-    }
-
     .free-lesson-desc {
       font-size: 1.15rem;
       color: #94a3b8;
@@ -1133,55 +1229,8 @@
       font-weight: 700;
     }
 
-    /* Стилизация карточки-ссылки */
-    .system-card-link {
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
-      transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .system-card-link:hover {
-      transform: translateY(-2px);
-      border-color: rgba(15, 23, 42, 0.35);
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.05);
-    }
-
-    .system-card-header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    /* Стрелочка внешнего перехода */
-    .system-link-arrow {
-      font-family: var(--font-mono);
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--text-muted);
-      transition: transform 0.2s ease, color 0.2s ease;
-    }
-
-    .system-card-link:hover .system-link-arrow {
-      color: var(--text-main);
-      transform: translate(3px, -3px);
-    }
-
-    /* Аккуратное тонкое подчеркивание названия */
-    .system-title-accent {
-      text-decoration: underline;
-      text-decoration-thickness: 2px;
-      text-underline-offset: 4px;
-      text-decoration-color: rgba(15, 23, 42, 0.3);
-      transition: text-decoration-color 0.2s ease;
-    }
-
-    .system-card-link:hover .system-title-accent {
-      text-decoration-color: var(--text-main);
-    }
-
     /* -------------------------------------------------------------
-       АДАПТИВ
+       АДАПТИВ (ПЛАНШЕТЫ И ТЕЛЕФОНЫ <= 960PX)
        ------------------------------------------------------------- */
     @media (max-width: 1024px) {
       .bento-small {
@@ -1194,18 +1243,6 @@
     }
 
     @media (max-width: 960px) {
-
-      /* Полностью скрываем блок с фотографией на планшетах и телефонах */
-      .hero-photo-wrap {
-        display: none !important;
-      }
-
-      /* Переводим сетку Hero в одну колонку без пустого места справа */
-      .hero-split {
-        grid-template-columns: 1fr !important;
-        gap: 0 !important;
-      }
-
       .section-wrap {
         padding: 90px 20px 50px;
       }
@@ -1216,39 +1253,36 @@
 
       .hero-split {
         grid-template-columns: 1fr;
-        gap: 40px;
+        gap: 0;
       }
 
+      /* Скрываем большое фото на экранах <= 960px */
       .hero-photo-wrap {
-        order: -1;
+        display: none !important;
       }
 
-      .photo-container {
-        max-width: 320px;
+      /* Показываем аккуратный круглый аватар преподавателя */
+      .hero-mobile-author {
+        display: inline-flex;
       }
 
-      /* Черный блок с белым текстом на главной */
-      .hero-title .hero-title-box {
-        display: inline-block !important;
-        background-color: #0f172a !important;
-        color: #ffffff !important;
-        padding: 4px 14px !important;
-        margin: 0 4px 4px 0 !important;
-        line-height: 1.15 !important;
-        vertical-align: middle !important;
-        border: none !important;
+      .hero-tags-row {
+        margin-bottom: 20px;
       }
 
-      /* Белый блок с темным текстом в секции бесплатного урока */
-      .free-lesson-title .free-lesson-box {
-        display: inline-block !important;
-        background-color: #ffffff !important;
-        color: #0f172a !important;
-        padding: 4px 16px !important;
-        margin: 0 6px !important;
-        line-height: 1.15 !important;
-        vertical-align: middle !important;
-        border: none !important;
+      h1.hero-title {
+        font-size: clamp(2.1rem, 7vw, 3rem);
+        margin-bottom: 28px;
+      }
+
+      .hero-title-box,
+      .free-lesson-box {
+        padding: 2px 10px;
+      }
+
+      .btn-solid {
+        width: 100%;
+        text-align: center;
       }
 
       .bento-reviews-grid {
@@ -1271,20 +1305,6 @@
         max-width: 96vw;
       }
 
-      .system-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .system-card-full {
-        grid-column: span 1;
-      }
-
-      .system-card {
-        padding: 28px 24px;
-        min-height: 160px;
-      }
-
       .trajectory-layout {
         grid-template-columns: 1fr;
         gap: 24px;
@@ -1293,6 +1313,10 @@
       .calc-window,
       .roadmap-window {
         padding: 24px;
+      }
+
+      .free-lesson-title {
+        font-size: clamp(2rem, 6.5vw, 2.8rem);
       }
 
       .free-lesson-desc {
@@ -1338,6 +1362,120 @@
         border: var(--border-subtle);
       }
     }
+
+    /* -------------------------------------------------------------
+       ТЕЛЕФОНЫ (<= 640PX): ПЕРЕХОД СЕКЦИИ СИСТЕМА В АККОРДЕОН
+       ------------------------------------------------------------- */
+    @media (max-width: 640px) {
+      #system {
+        padding: 60px 20px 50px;
+        min-height: auto;
+      }
+
+      .section-title {
+        margin-bottom: 24px;
+      }
+
+      .system-container-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .system-item-full {
+        grid-column: span 1;
+      }
+
+      .system-item {
+        padding: 20px;
+        min-height: auto;
+        cursor: pointer;
+        display: block;
+      }
+
+      .system-item:hover {
+        transform: none;
+      }
+
+      .system-item-header {
+        cursor: pointer;
+      }
+
+      .system-item-num-row {
+        margin-bottom: 8px;
+      }
+
+      .system-item-title {
+        font-size: 1.12rem;
+      }
+
+      /* Показываем переключатель «+» в строке номера */
+      .system-item-icon {
+        display: inline-block;
+        font-family: var(--font-mono);
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-muted);
+        transition: transform 0.25s ease, color 0.2s ease;
+        line-height: 1;
+      }
+
+      .system-item.active .system-item-icon {
+        transform: rotate(45deg);
+        color: var(--text-main);
+      }
+
+      .system-item-inverse .system-item-icon {
+        color: #94a3b8;
+      }
+
+      .system-item-inverse.active .system-item-icon {
+        color: #ffffff;
+      }
+
+      .system-link-arrow {
+        display: none;
+      }
+
+      /* Курсор-лупа только для мобильного круглого аватара */
+      .hero-mobile-avatar {
+        cursor: zoom-in;
+      }
+
+      /* Анимация аккордеона через grid-template-rows */
+      .system-item-collapse {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.25s ease;
+      }
+
+      .system-item.active .system-item-collapse {
+        grid-template-rows: 1fr;
+      }
+
+      .system-item-body-wrap {
+        overflow: hidden;
+      }
+
+      .system-item-desc {
+        padding-top: 12px;
+        margin-top: 0;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .system-mobile-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: #ffffff;
+        font-size: 0.88rem;
+        font-weight: 700;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        margin-top: 10px;
+      }
+    }
   </style>
 </head>
 
@@ -1371,6 +1509,16 @@
       <div class="hero-split">
 
         <div class="hero-left">
+
+          <!-- Мобильный круглый аватар преподавателя (<= 960px) -->
+          <div class="hero-mobile-author">
+            <img src="me_mobile.jpg" alt="Прусаков Роман" class="hero-mobile-avatar" />
+            <div class="hero-mobile-meta">
+              <span class="hero-mobile-name">Прусаков Роман</span>
+              <span class="hero-mobile-role">Преподаватель информатики</span>
+            </div>
+          </div>
+
           <!-- 4 плашки в строгой последовательности -->
           <div class="hero-tags-row">
             <span class="hero-tag">8–11 класс</span>
@@ -1387,6 +1535,7 @@
           </button>
         </div>
 
+        <!-- Десктопное фото (на мобильных и планшетах <= 960px скрыто) -->
         <div class="hero-photo-wrap">
           <div class="photo-container">
             <img src="me.jpg" alt="Прусаков Роман — преподаватель информатики" />
@@ -1478,74 +1627,111 @@
     </div>
   </div>
 
-  <!-- СЕКЦИЯ 3: СИСТЕМА -->
+  <!-- СЕКЦИЯ 3: СИСТЕМА (GRID НА ДЕСКТОПЕ/ПЛАНШЕТЕ + АККОРДЕОН НА МОБИЛКАХ) -->
   <section id="system" class="section-wrap">
     <div class="container system-content">
 
       <h2 class="section-title">Система</h2>
 
-      <div class="system-grid">
+      <div class="system-container-layout">
 
         <!-- 01 -->
-        <div class="system-card">
-          <div class="system-card-top">
-            <div class="system-card-num">01</div>
-            <div class="system-card-title">Удобный формат занятий</div>
+        <div class="system-item">
+          <div class="system-item-header">
+            <div class="system-item-num-row">
+              <span class="system-item-num">01</span>
+              <span class="system-item-icon">+</span>
+            </div>
+            <div class="system-item-title">Удобный формат занятий</div>
           </div>
-          <div class="system-card-desc">
-            Занятия один на один или в мини-группе: сохраняем детальный разбор тем и фокус на результате.
+          <div class="system-item-collapse">
+            <div class="system-item-body-wrap">
+              <div class="system-item-desc">
+                Занятия один на один или в мини-группе: сохраняем детальный разбор тем и фокус на результате.
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- 02 -->
-        <div class="system-card">
-          <div class="system-card-top">
-            <div class="system-card-num">02</div>
-            <div class="system-card-title">Отчеты каждые 2 недели</div>
+        <div class="system-item">
+          <div class="system-item-header">
+            <div class="system-item-num-row">
+              <span class="system-item-num">02</span>
+              <span class="system-item-icon">+</span>
+            </div>
+            <div class="system-item-title">Отчеты каждые 2 недели</div>
           </div>
-          <div class="system-card-desc">
-            Вы видите динамику баллов, статус домашних заданий и точечные рекомендации по пробелам.
+          <div class="system-item-collapse">
+            <div class="system-item-body-wrap">
+              <div class="system-item-desc">
+                Вы видите динамику баллов, статус домашних заданий и рекомендации по пробелам.
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- 03 (Интерактивная карточка-ссылка) -->
-        <a href="https://schyot.tech" target="_blank" rel="noopener noreferrer"
-          class="system-card system-card-full system-card-link">
-          <div class="system-card-top">
-            <div class="system-card-header-row">
-              <div class="system-card-num">03</div>
+        <!-- 03 (Инверсивная темная карточка + платформа «СЧЁТ») -->
+        <div class="system-item system-item-full system-item-inverse" data-href="https://schyot.tech">
+          <div class="system-item-header">
+            <div class="system-item-num-row">
+              <span class="system-item-num">03</span>
               <span class="system-link-arrow">↗</span>
+              <span class="system-item-icon">+</span>
             </div>
-            <div class="system-card-title">
+            <div class="system-item-title">
               Платформа <span class="system-title-accent">СЧЁТ</span>
             </div>
           </div>
-          <div class="system-card-desc">
-            Интерактивный тренажер задач, автопроверка и геймификация для регулярной практики.
+          <div class="system-item-collapse">
+            <div class="system-item-body-wrap">
+              <div class="system-item-desc">
+                Подготовка перестает быть скучной: получаете доступ к тренажеру задач с системой геймификации.
+                <div>
+                  <a href="https://schyot.tech" target="_blank" rel="noopener noreferrer" class="system-mobile-cta">
+                    Перейти на платформу ↗
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
-        </a>
+        </div>
 
         <!-- 04 -->
-        <div class="system-card">
-          <div class="system-card-top">
-            <div class="system-card-num">04</div>
-            <div class="system-card-title">Регулярные пробники</div>
+        <div class="system-item">
+          <div class="system-item-header">
+            <div class="system-item-num-row">
+              <span class="system-item-num">04</span>
+              <span class="system-item-icon">+</span>
+            </div>
+            <div class="system-item-title">Регулярные пробники</div>
           </div>
-          <div class="system-card-desc">
-            Отслеживаем реальный прогресс в баллах, привыкаем бороться со стрессом и работать при ограниченном
-            времени.
+          <div class="system-item-collapse">
+            <div class="system-item-body-wrap">
+              <div class="system-item-desc">
+                Отслеживаем реальный прогресс в баллах, привыкаем бороться со стрессом и работать при ограниченном
+                времени.
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- 05 -->
-        <div class="system-card">
-          <div class="system-card-top">
-            <div class="system-card-num">05</div>
-            <div class="system-card-title">Поддержка вне уроков</div>
+        <div class="system-item">
+          <div class="system-item-header">
+            <div class="system-item-num-row">
+              <span class="system-item-num">05</span>
+              <span class="system-item-icon">+</span>
+            </div>
+            <div class="system-item-title">Поддержка вне уроков</div>
           </div>
-          <div class="system-card-desc">
-            Быстрая помощь в Telegram: не нужно ждать следующего занятия, чтобы разобрать сложную задачу или ошибку в
-            коде.
+          <div class="system-item-collapse">
+            <div class="system-item-body-wrap">
+              <div class="system-item-desc">
+                Быстрая помощь в Telegram: не нужно ждать следующего занятия, чтобы разобрать сложную задачу или ошибку
+                в коде.
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1704,8 +1890,8 @@
       </h2>
 
       <p class="free-lesson-desc">
-        Проведем подробную диагностику текущего уровня знаний. Разберем практическое задание, определим слабые места и
-        составим пошаговую персональную стратегию подготовки до желаемого балла на экзамене.
+        Проведем диагностику уровня знаний, разберем новое задание и
+        составим план подготовки до желаемого балла на экзамене.
       </p>
 
       <div class="free-lesson-action-row">
@@ -1811,7 +1997,7 @@
     </div>
   </div>
 
-  <!-- JS ЛОГИКА ШКАЛЫ И ДИНАМИЧЕСКОЙ ТРАЕКТОРИИ -->
+  <!-- JS ЛОГИКА ШКАЛЫ, ТРАЕКТОРИИ И АККОРДЕОНА -->
   <script>
     const egeScale = [
       0, 7, 14, 20, 27, 34, 40, 43, 46, 48, 51,
@@ -1867,7 +2053,6 @@
       scoreDisplayCurrent.textContent = curTestScore;
       scoreDisplayTarget.textContent = tgtTestScore;
 
-      // Уровни Python
       const pyVal = parseInt(rangePython.value, 10);
       rangePython.className = '';
       valPython.className = 'py-level-tag';
@@ -1891,10 +2076,8 @@
       const totalMonths = parseInt(rangeMonths.value, 10);
       valMonths.textContent = `${totalMonths} мес.`;
 
-      // Расчет 4 этапов
       let p1, p2, p3, p4;
 
-      // 1. Этап 1: Освоение базы
       if (curTestScore >= 45) {
         p1 = 1;
       } else if (pyVal === 1) {
@@ -1903,7 +2086,6 @@
         p1 = 1.5;
       }
 
-      // 2. Этап 2: Закрепление программирования
       if (curTestScore >= 80) {
         p2 = 1;
       } else if (pyVal === 1) {
@@ -1912,7 +2094,6 @@
         p2 = 2.5;
       }
 
-      // 3. Этап 4: Режим экзамена
       p4 = totalMonths <= 3 ? 0.5 : (totalMonths <= 6 ? 1.0 : 1.5);
 
       let coreNeeded = p1 + p2 + p4;
@@ -1938,13 +2119,11 @@
         }
       }
 
-      // Обновление таймингов
       phase1Time.textContent = formatMonths(p1);
       phase2Time.textContent = formatMonths(p2);
       phase3Time.textContent = formatMonths(p3);
       phase4Time.textContent = formatMonths(p4);
 
-      // Динамическая адаптация пояснений к карточкам
       if (curTestScore >= 60) {
         phase1Desc.textContent = "Проверка знания базовых тем (1, 3, 4, 7, 11, 12), закрытие точечных пробелов в Python.";
       } else {
@@ -1974,7 +2153,37 @@
 
     updateTrajectory();
 
-    // Логика модального окна контактов
+    // Логика аккордеона на смартфонах (<= 640px)
+    const systemItems = document.querySelectorAll('.system-item');
+
+    systemItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        // На десктопе и планшетах (> 640px) карточка 03 работает как прямая ссылка
+        if (window.innerWidth > 640) {
+          if (item.classList.contains('system-item-inverse')) {
+            window.open(item.getAttribute('data-href'), '_blank');
+          }
+          return;
+        }
+
+        // На смартфонах клик по мобильной кнопке-ссылке ведет на сайт
+        if (e.target.closest('.system-mobile-cta')) return;
+
+        const isActive = item.classList.contains('active');
+
+        // Закрываем остальные вкладки
+        systemItems.forEach(other => {
+          other.classList.remove('active');
+        });
+
+        // Открываем текущую, если была закрыта
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // Модальное окно контактов
     const modal = document.getElementById('contactModal');
     const openBtns = document.querySelectorAll('.open-modal-btn');
     const closeBtn = document.getElementById('closeModalBtn');
@@ -2000,12 +2209,24 @@
       }
     });
 
-    // Логика модального окна полноэкранного просмотра отзыва
+    // Модальное окно просмотра отзыва
     const imageModal = document.getElementById('imageModal');
     const imageModalImg = document.getElementById('imageModalImg');
     const imageModalTitle = document.getElementById('imageModalTitle');
     const imageModalCloseBtn = document.getElementById('imageModalCloseBtn');
     const reviewCards = document.querySelectorAll('.bento-card');
+
+    // Открытие полноразмерного me.jpg по клику на круглый аватар
+    const mobileAvatar = document.querySelector('.hero-mobile-avatar');
+    if (mobileAvatar) {
+      mobileAvatar.addEventListener('click', () => {
+        imageModalImg.src = 'me.jpg'; // Всегда открываем оригинал me.jpg
+        imageModalTitle.textContent = '';
+        imageModal.classList.add('active');
+        imageModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      });
+    }
 
     reviewCards.forEach(card => {
       card.addEventListener('click', () => {
